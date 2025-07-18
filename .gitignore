@@ -1,0 +1,7 @@
+node_modules/
+*.log
+.env
+.DS_Store
+public/dist/
+notes/*.bak
+repomix-output.xml

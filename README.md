@@ -5,13 +5,15 @@ A fast, minimalist, local-first web application that turns a directory of Markdo
 ## 🚀 Features
 
 - **Local File System as Source of Truth**: Reads content directly from your Markdown files. No cloud, no DB, no telemetry.
-- **Dynamic Note Listing**: Browse all Markdown files in your configured `notesDirectory` and its subdirectories.
-- **Single Page Dashboard & Note Viewer**: Navigate between a configurable dashboard view and individual note views, all within a single web interface.
+- **Sidebar Navigation**: Hierarchical folder structure with expandable/collapsible folders and clickable files.
 - **Live Updating**: Real-time updates via WebSocket when Markdown files change.
 - **Configurable Widgets**: Define specific Markdown files to display as fixed "widgets" on the dashboard view via `dashboardWidgets` in `config.json`.
-- **In-Browser Editing**: Edit notes directly in the browser with a simple textarea and save/cancel functionality.
-- **Enhanced CLI**: Manage your dashboard instances and notes with `pepenero-cli` (init, add, open, start, stop, help).
-- **Code Format Data Views**: Special Markdown blocks (```dataview) are visually highlighted in the UI.
+- **Enhanced In-Browser Editing**: Edit notes with live Markdown preview, auto-save, and save status indicators.
+- **Inter-Note Linking**: Support for wiki-links `[[Note Name]]` with visual indicators for existing/non-existent links.
+- **Full-Text Search**: Search across all notes with real-time results and relevance sorting.
+- **Advanced Dataview Blocks**: Enhanced rendering of dataview blocks with query type detection.
+- **Professional UI**: Clean, modern interface with responsive design for desktop and mobile.
+- **Enhanced CLI**: Manage your dashboard instances and notes with `pepenero-cli` (init, add, open, start, serve, stop, help).
 - **Clean, Modular Architecture**: Easy to extend and hack.
 
 ## 🛠 Setup
@@ -50,8 +52,11 @@ npm install -g pepenero
 
 - **Dashboard View:** `http://localhost:PORT/#/dashboard` — shows widgets defined in `dashboardWidgets`.
 - **Notes List View:** `http://localhost:PORT/#/notes` — lists all `.md` files in your `notesDirectory`.
-- **Single Note View:** `http://localhost:PORT/#/note/path/to/your-note.md` — view or edit a note.
-- **Edit in Browser:** Click "Edit" on a note, modify in the textarea, and click "Save".
+- **Single Note View:** `http://localhost:PORT/#/note/path/to/your-note.md` — view or edit a note with live preview.
+- **Search:** Use the search bar in the header to find notes across all content.
+- **Sidebar Navigation:** Click folders to expand/collapse, click files to open them.
+- **Wiki-Links:** Use `[[Note Name]]` syntax to create links between notes.
+- **Enhanced Editing:** Click "Edit" on a note for split-screen editing with live preview.
 - **CLI:**
   - `pepenero-cli serve [directory]` — Serve any folder as a Markdown dashboard (no setup required).
   - `pepenero-cli start [directory]` — Start the dashboard server (works with or without config).
@@ -104,16 +109,16 @@ npm install -g pepenero
 ```
 
 ## 💡 Extension Ideas
-- In-browser editing with Markdown preview
+- Advanced dataview query execution
 - New note creation from the UI
-- Inter-note linking (Wiki-links)
-- Full-text search
-- Markdown extensions (checkboxes, diagrams)
+- Markdown extensions (checkboxes, diagrams, tables)
 - Other file formats (txt, csv, json)
 - Theming and layout options
-- CLI integration for more actions
 - Drag-and-drop widget reordering
 - Syntax highlighting for code blocks
+- Export functionality (PDF, HTML)
+- Plugin system for custom renderers
+- Collaborative editing features
 
 ---
 **Built for tinkerers and productivity nerds.**

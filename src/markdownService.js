@@ -16,11 +16,95 @@ export async function writeMarkdown(notesDir, relPath, content) {
   await fs.writeFile(absPath, content, 'utf-8');
 }
 
-export function renderMarkdown(markdown) {
-  // Highlight dataview blocks
-  const dataviewRegex = /```dataview\\n([\\s\\S]*?)```/g;
-  let html = marked.parse(markdown.replace(dataviewRegex, (match, code) =>
-    `<div class="dataview-block"><pre>${code}</pre></div>`
-  ));
+// Get all markdown files for link validation
+export async function getAllMarkdownFiles(notesDir) {
+  const files = [];
+  
+  function walk(dir, base = '') {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const rel = path.join(base, entry.name);
+      if (entry.isDirectory()) {
+        walk(path.join(dir, entry.name), rel);
+      } else if (entry.isFile() && entry.name.endsWith('.md')) {
+        files.push(rel);
+      }
+    }
+  }
+  
+  walk(notesDir);
+  return files;
+}
+
+// Extract title from markdown content
+export function extractTitle(markdown) {
+  const h1Match = markdown.match(/^#\s+(.+)$/m);
+  if (h1Match) return h1Match[1].trim();
+  
+  // Fallback to filename without extension
+  return '';
+}
+
+export function renderMarkdown(markdown, availableFiles = []) {
+  // Process wiki-links first
+  const processedMarkdown = processWikiLinks(markdown, availableFiles);
+  
+  // Highlight dataview blocks with enhanced parsing
+  const dataviewRegex = /```dataview\n([\s\S]*?)```/g;
+  let html = marked.parse(processedMarkdown.replace(dataviewRegex, (match, code) => {
+    const dataviewHtml = renderDataviewBlock(code);
+    return `<div class="dataview-block">${dataviewHtml}</div>`;
+  }));
+  
   return html;
+}
+
+function processWikiLinks(markdown, availableFiles) {
+  // Convert [[Link Target]] to markdown links
+  return markdown.replace(/\[\[([^\]]+)\]\]/g, (match, linkTarget) => {
+    const targetFile = linkTarget.endsWith('.md') ? linkTarget : `${linkTarget}.md`;
+    const exists = availableFiles.includes(targetFile);
+    const className = exists ? 'wiki-link' : 'wiki-link non-existent-link';
+    return `<a href="#/note/${encodeURIComponent(targetFile)}" class="${className}">${linkTarget}</a>`;
+  });
+}
+
+function renderDataviewBlock(code) {
+  const trimmedCode = code.trim();
+  
+  // Basic dataview query detection
+  if (trimmedCode.toLowerCase().includes('list')) {
+    return `
+      <div class="dataview-header">
+        <span class="dataview-icon">📋</span>
+        <span class="dataview-type">List Query</span>
+      </div>
+      <pre class="dataview-code">${code}</pre>
+      <div class="dataview-placeholder">
+        Dataview query recognized, full rendering coming soon!
+      </div>
+    `;
+  }
+  
+  if (trimmedCode.toLowerCase().includes('table')) {
+    return `
+      <div class="dataview-header">
+        <span class="dataview-icon">📊</span>
+        <span class="dataview-type">Table Query</span>
+      </div>
+      <pre class="dataview-code">${code}</pre>
+      <div class="dataview-placeholder">
+        Dataview query recognized, full rendering coming soon!
+      </div>
+    `;
+  }
+  
+  // Default rendering for unrecognized queries
+  return `
+    <div class="dataview-header">
+      <span class="dataview-icon">🔍</span>
+      <span class="dataview-type">Dataview Query</span>
+    </div>
+    <pre class="dataview-code">${code}</pre>
+  `;
 }

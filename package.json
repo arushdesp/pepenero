@@ -1,0 +1,32 @@
+{
+  "name": "pepenero",
+  "version": "1.0.0",
+  "description": "A fast, minimalist, local-first web application that turns a directory of Markdown files into a beautiful, auto-updating, customizable personal dashboard.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "markdown",
+    "dashboard",
+    "local-first",
+    "personal-wiki",
+    "notes",
+    "live-reload"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "express": "^5.1.0",
+    "marked": "^16.1.1",
+    "ws": "^8.18.3",
+    "fs-extra": "^11.2.0"
+  },
+  "bin": {
+    "pepenero-cli": "./cli.js"
+  }
+}

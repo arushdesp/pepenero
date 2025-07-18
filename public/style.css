@@ -29,6 +29,7 @@ h1 {
   flex: 1 1 300px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 1em;
 }
 
 .widget-title {
@@ -37,4 +38,38 @@ h1 {
   font-size: 1.1rem;
 }
 
+.dataview-block {
+  background: #f0f7ff;
+  border-left: 4px solid #0074d9;
+  padding: 1em;
+  margin: 1em 0;
+  font-family: monospace;
+}
+
+#note-view textarea {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+#saving-msg {
+  color: #0074d9;
+  margin-left: 1em;
+}
+
 /* Theme and layout extension points below */
+
+nav {
+  background: #222;
+  color: #fff;
+  padding: 1em;
+}
+
+nav a {
+  color: #fff;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+#main {
+  padding: 2em;
+}

@@ -1,0 +1,50 @@
+# Development files
+.git/
+.gitignore
+.github/
+.vscode/
+.idea/
+
+# Documentation
+CHANGELOG.md
+*.md
+!README.md
+
+# Test files
+test/
+tests/
+*.test.js
+*.spec.js
+
+# Development scripts
+.eslintrc*
+.prettierrc*
+.editorconfig
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# Example files
+example/
+examples/
+demo/
+
+# Notes directory (user data)
+notes/
+
+# Local development
+.env
+.env.local
+.env.development
+.env.test
+.env.production 

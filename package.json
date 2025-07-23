@@ -5,9 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "pepenero serve .",
+    "dev": "pepenero serve ."
   },
   "keywords": [
     "nodejs",
@@ -21,26 +20,24 @@
     "productivity",
     "knowledge-management"
   ],
-  "author": "Pepenero Team",
+  "author": "Charilaos Mitsis",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/pepenero.git"
+    "url": "https://github.com/pepenero-team/pepenero.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/pepenero/issues"
+    "url": "https://github.com/arushdesp/pepenero/issues"
   },
-  "homepage": "https://github.com/yourusername/pepenero#readme",
+  "homepage": "https://github.com/arushdesp/pepenero#readme",
   "dependencies": {
-    "chokidar": "^4.0.3",
     "commander": "^14.0.0",
     "express": "^4.21.2",
     "fs-extra": "^11.2.0",
     "marked": "^16.1.1",
-    "open": "^10.2.0",
-    "ws": "^8.18.3"
+    "open": "^10.2.0"
   },
   "bin": {
-    "pepenero-cli": "./cli.js"
+    "pepe": "./cli.js"
   }
 }

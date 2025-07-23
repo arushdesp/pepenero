@@ -3,7 +3,7 @@ import path from 'path';
 import http from 'http';
 import { fileURLToPath } from 'url';
 import fs from 'fs-extra';
-import { loadConfig } from './src/configLoader.js';
+
 import { readMarkdown, writeMarkdown, renderMarkdown, getAllMarkdownFiles, extractTitle } from './src/markdownService.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -11,23 +11,24 @@ const __dirname = path.dirname(__filename);
 
 const targetDir = process.argv[2] ? path.resolve(process.argv[2]) : process.cwd();
 const isServeMode = process.env.PEPENERO_SERVE === '1'; // set by CLI for serve
-const configPath = path.join(targetDir, 'config.json');
-let config, notesDir, dashboardWidgets;
+const singleFilePath = process.env.PEPENERO_SINGLE_FILE; // set by CLI for single file serve
 
-if (fs.existsSync(configPath)) {
-  config = loadConfig(configPath);
-  notesDir = path.resolve(targetDir, config.notesDirectory || 'notes');
-  dashboardWidgets = config.dashboardWidgets || [];
+let config, notesDir;
+
+if (singleFilePath) {
+  notesDir = path.dirname(singleFilePath);
+  config = { port: 3000 };
+} else if (fs.existsSync(path.join(targetDir, 'config.json'))) {
+  const configPath = path.join(targetDir, 'config.json');
+  config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  notesDir = targetDir;
 } else {
   // Auto-detect mode: treat targetDir as notes directory
   if (!fs.existsSync(targetDir)) {
     throw new Error(`Directory not found: ${targetDir}`);
   }
   notesDir = targetDir;
-  dashboardWidgets = fs.readdirSync(notesDir)
-    .filter(f => f.endsWith('.md'))
-    .map(f => ({ file: f, title: f }));
-  config = { port: 3000, notesDirectory: notesDir, dashboardWidgets };
+  config = { port: 3000 };
 }
 
 const app = express();
@@ -38,6 +39,9 @@ app.use(express.json());
 
 // Recursively list all .md files in notesDir
 function walk(dir, base = '') {
+  if (singleFilePath) {
+    return [path.relative(dir, singleFilePath)];
+  }
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
     const rel = path.join(base, entry.name);
     if (entry.isDirectory()) return walk(path.join(dir, entry.name), rel);
@@ -59,8 +63,11 @@ app.get('/api/notes', (req, res) => {
 app.get('/api/notes/*', async (req, res) => {
   try {
     const relPath = req.params[0];
+    if (singleFilePath && path.resolve(notesDir, relPath) !== singleFilePath) {
+      return res.status(404).json({ error: 'Only the specified file can be accessed.' });
+    }
     const markdown = await readMarkdown(notesDir, relPath);
-    const availableFiles = await getAllMarkdownFiles(notesDir);
+    const availableFiles = singleFilePath ? [path.basename(singleFilePath)] : await getAllMarkdownFiles(notesDir);
     const title = extractTitle(markdown);
     res.json({ 
       markdown, 
@@ -76,6 +83,9 @@ app.get('/api/notes/*', async (req, res) => {
 app.put('/api/notes/*', async (req, res) => {
   try {
     const relPath = req.params[0];
+    if (singleFilePath && path.resolve(notesDir, relPath) !== singleFilePath) {
+      return res.status(403).json({ error: 'Modifying other files is not allowed in single file serve mode.' });
+    }
     const { rawMarkdown } = req.body;
     if (typeof rawMarkdown !== 'string') throw new Error('Missing rawMarkdown');
     await writeMarkdown(notesDir, relPath, rawMarkdown);
@@ -85,25 +95,13 @@ app.put('/api/notes/*', async (req, res) => {
   }
 });
 
-// Dashboard widgets
-app.get('/api/widgets', async (req, res) => {
-  const availableFiles = await getAllMarkdownFiles(notesDir);
-  const widgets = (config.dashboardWidgets || []).map(widget => {
-    try {
-      const markdown = fs.readFileSync(path.join(notesDir, widget.file), 'utf-8');
-      return {
-        ...widget,
-        html: renderMarkdown(markdown, availableFiles)
-      };
-    } catch {
-      return { ...widget, html: '<em>File not found</em>' };
-    }
-  });
-  res.json(widgets);
-});
+
 
 // Search endpoint
 app.get('/api/search', async (req, res) => {
+  if (singleFilePath) {
+    return res.json([]); // Search is not applicable in single file serve mode
+  }
   try {
     const query = req.query.q;
     if (!query || query.trim().length === 0) {
@@ -155,5 +153,5 @@ app.get('/api/search', async (req, res) => {
 const PORT = config.port || 3000;
 server.listen(PORT, () => {
   console.log(`Dashboard running at http://localhost:${PORT}`);
-  console.log(`Serving notes from: ${notesDir}`);
+  console.log(`Serving content from: ${notesDir}`);
 }); 

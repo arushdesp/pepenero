@@ -70,41 +70,18 @@ function processWikiLinks(markdown, availableFiles) {
 }
 
 function renderDataviewBlock(code) {
-  const trimmedCode = code.trim();
-  
-  // Basic dataview query detection
-  if (trimmedCode.toLowerCase().includes('list')) {
-    return `
-      <div class="dataview-header">
-        <span class="dataview-icon">📋</span>
-        <span class="dataview-type">List Query</span>
-      </div>
-      <pre class="dataview-code">${code}</pre>
-      <div class="dataview-placeholder">
-        Dataview query recognized, full rendering coming soon!
-      </div>
-    `;
-  }
-  
-  if (trimmedCode.toLowerCase().includes('table')) {
-    return `
-      <div class="dataview-header">
-        <span class="dataview-icon">📊</span>
-        <span class="dataview-type">Table Query</span>
-      </div>
-      <pre class="dataview-code">${code}</pre>
-      <div class="dataview-placeholder">
-        Dataview query recognized, full rendering coming soon!
-      </div>
-    `;
-  }
-  
-  // Default rendering for unrecognized queries
+  // Simplified rendering for Dataview blocks.
+  // Full Dataview parsing is not implemented.
   return `
-    <div class="dataview-header">
-      <span class="dataview-icon">🔍</span>
-      <span class="dataview-type">Dataview Query</span>
+    <div class="dataview-block">
+      <div class="dataview-header">
+        <span class="dataview-icon">🔍</span>
+        <span class="dataview-type">Dataview Query</span>
+      </div>
+      <pre class="dataview-code">${code}</pre>
+      <div class="dataview-note">
+        <em>Note: Dataview queries are displayed as code blocks. Full rendering is not supported.</em>
+      </div>
     </div>
-    <pre class="dataview-code">${code}</pre>
   `;
 }

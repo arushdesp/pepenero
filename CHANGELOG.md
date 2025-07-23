@@ -5,6 +5,53 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-07-23
+
+### Changed
+- Renamed CLI executable from `pepenero-cli` to `pepe`.
+- Refined `serve` command to support serving single Markdown files (`--file` option).
+- Streamlined `start` command to exclusively run initialized projects.
+- Removed `configLoader.js` by integrating its logic into `server.js`.
+- Removed unused `chokidar` and `ws` dependencies.
+- Updated `README.md` to accurately reflect current features and file structure, and clarify `config.json` as optional.
+- Removed misleading "Live Updating" feature from documentation.
+- Updated `package.json` scripts and repository URLs.
+- Fixed syntax error in `package.json`.
+- Updated `cli.js` description for `start` and `stop` commands.
+- Updated `server.js` console log for serving content.
+
+### Removed
+- `init` command (no longer needed for project setup).
+- `notesDirectory` and `dashboardWidgets` features from codebase and documentation.
+- `config.json` creation from `pepe init` command.
+- `config.json` file from repository root.
+- `chokidar` and `ws` dependencies (no longer used for live updates).
+- `configLoader.js` (logic integrated into `server.js`).
+- Placeholder `test` script from `package.json`.
+- `/api/widgets` endpoint from `server.js`.
+- Dashboard-related UI elements and logic from `public/app.js`, `public/index.html`, and `public/style.css`.
+
+## [1.0.1] - 2025-07-23
+
+### Changed
+- Refined `serve` command to support serving single Markdown files (`--file` option).
+- Streamlined `start` command to exclusively run initialized projects.
+- Removed `configLoader.js` by integrating its logic into `server.js`.
+- Removed unused `chokidar` and `ws` dependencies.
+- Updated `README.md` to accurately reflect current features and file structure, and clarify `config.json` as optional.
+- Removed misleading "Live Updating" feature from documentation.
+- Updated `package.json` scripts and repository URLs.
+- Fixed syntax error in `package.json`.
+
+### Removed
+- `init` command (no longer needed for project setup).
+- `notesDirectory` and `dashboardWidgets` features from codebase and documentation.
+- `config.json` creation from `pepe init` command.
+- `chokidar` and `ws` dependencies (no longer used for live updates).
+- `configLoader.js` (logic integrated into `server.js`).
+- Placeholder `test` script from `package.json`.
+- `/api/widgets` endpoint from `server.js`.
+
 ## [1.0.0] - 2024-07-18
 
 ### Added

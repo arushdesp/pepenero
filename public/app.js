@@ -186,8 +186,6 @@ class PepeneroApp {
     if (hash.startsWith('/note/')) {
       const notePath = decodeURIComponent(hash.slice(6));
       await this.showNote(notePath);
-    } else if (hash === '/dashboard') {
-      await this.showDashboard();
     } else if (hash === '/notes') {
       await this.showNotesList();
     } else if (hash.startsWith('/search')) {
@@ -195,34 +193,8 @@ class PepeneroApp {
       const query = params.get('q');
       await this.showSearchPage(query);
     } else {
-      // Default to dashboard
-      window.location.hash = '#/dashboard';
-    }
-  }
-  
-  async showDashboard() {
-    const main = document.getElementById('main');
-    main.innerHTML = '<div class="loading">Loading dashboard...</div>';
-    
-    try {
-      const response = await fetch('/api/widgets');
-      const widgets = await response.json();
-      
-      main.innerHTML = `
-        <div class="dashboard">
-          <h2>Dashboard</h2>
-          <div class="widgets-grid">
-            ${widgets.map(widget => `
-              <div class="widget">
-                <h3>${widget.title}</h3>
-                <div class="widget-content">${widget.html}</div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
-    } catch (error) {
-      main.innerHTML = '<div class="error">Error loading dashboard</div>';
+      // Default to notes list
+      window.location.hash = '#/notes';
     }
   }
   

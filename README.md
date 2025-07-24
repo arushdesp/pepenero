@@ -13,8 +13,6 @@ A fast, minimalist, local-first web application that turns a directory of Markdo
 - **Professional UI**: Clean, modern interface with responsive design for desktop and mobile.
 - **Enhanced CLI**: Manage your dashboard instances and notes with `pepe` (add, open, start, serve, stop, help).
 
-## Setup
-
 ### Local Development
 1. Clone/download this repo.
 2. `npm install`

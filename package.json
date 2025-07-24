@@ -1,6 +1,6 @@
 {
   "name": "pepenero",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A fast, minimalist, local-first web application that turns a directory of Markdown files into a beautiful, auto-updating, customizable personal dashboard.",
   "main": "server.js",
   "type": "module",
@@ -24,7 +24,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pepenero-team/pepenero.git"
+    "url": "https://github.com/arushdesp/pepenero.git"
   },
   "bugs": {
     "url": "https://github.com/arushdesp/pepenero/issues"

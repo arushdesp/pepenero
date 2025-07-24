@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "pepenero serve .",
-    "dev": "pepenero serve ."
+    "dev": "pepenero serve .",
+    "test": "jest"
   },
   "keywords": [
     "nodejs",
@@ -35,7 +36,8 @@
     "express": "^4.21.2",
     "fs-extra": "^11.2.0",
     "marked": "^16.1.1",
-    "open": "^10.2.0"
+    "open": "^10.2.0",
+    "jest": "30.0"
   },
   "bin": {
     "pepe": "./cli.js"

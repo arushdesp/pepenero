@@ -1,42 +1,42 @@
-name: Publish to NPM
+name: Publish to NPM (Prod Release)
 
 on:
   push:
     branches:
-      - main
-  release:
-    types: [published] 
+      - prod # This workflow runs only on pushes to the 'prod' branch
 
 jobs:
-  publish:
+  release:
+    name: Release
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      issues: write 
-      pull-requests: write 
-      id-token: write 
+      contents: write # Allows semantic-release to push updates (package.json, CHANGELOG.md), create tags, and GitHub Releases
+      issues: write # Allows semantic-release to comment on issues (optional)
+      pull-requests: write # Allows semantic-release to comment on PRs (optional)
+      id-token: write # Required for npm provenance
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # This is important for semantic-release to fetch all history
-          fetch-depth: 0
+          fetch-depth: 0 # IMPORTANT: semantic-release needs full Git history
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*' 
-          registry-url: 'https://registry.npmjs.org/' 
+          node-version: 'lts/*'
+          registry-url: 'https://registry.npmjs.org/'
 
       - name: Install dependencies
-        run: npm ci # Use npm ci for clean installs in CI environments
-          #Skip tests for now 
-      # - name: Run tests (optional, but highly recommended)
+        run: npm ci
+
+      # Removed the 'npm test' step as you currently have no tests.
+      # If you add tests later, uncomment this and ensure 'npm test' is defined in package.json
+      # - name: Run tests (optional)
       #   run: npm test
 
-      - name: Publish to NPM
+      - name: Run semantic-release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          npm publish --provenance --access public
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provided automatically by GitHub Actions
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}     # Your secret NPM token for publishing
+        run: npx semantic-release

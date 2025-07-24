@@ -30,18 +30,6 @@ npm install -g pepenero
 pepenero serve /path/to/your/markdown/files
 ```
 
-### Publishing to npm
-```bash
-# Login to npm
-npm login
-
-# Publish
-npm publish
-
-# Users can then install with:
-npm install -g pepenero
-```
-
 ## 📝 Usage
 
 - **Notes List View:** `http://localhost:PORT/#/notes` — lists all `.md` files in the served directory.

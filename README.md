@@ -2,7 +2,7 @@
 
 A fast, minimalist, local-first web application that turns a directory of Markdown files into a beautiful, auto-updating, customizable personal dashboard. Your own digital command center — built entirely on your machine, respecting privacy, speed, and simplicity.
 
-## 🚀 Features
+## Features
 
 - **Local File System as Source of Truth**: Reads content directly from your Markdown files. No cloud, no DB, no telemetry.
 - **Sidebar Navigation**: Hierarchical folder structure with expandable/collapsible folders and clickable files.
@@ -13,7 +13,7 @@ A fast, minimalist, local-first web application that turns a directory of Markdo
 - **Professional UI**: Clean, modern interface with responsive design for desktop and mobile.
 - **Enhanced CLI**: Manage your dashboard instances and notes with `pepe` (add, open, start, serve, stop, help).
 
-## 🛠 Setup
+## Setup
 
 ### Local Development
 1. Clone/download this repo.
@@ -30,7 +30,7 @@ npm install -g pepenero
 pepenero serve /path/to/your/markdown/files
 ```
 
-## 📝 Usage
+## Usage
 
 - **Notes List View:** `http://localhost:PORT/#/notes` — lists all `.md` files in the served directory.
 - **Single Note View:** `http://localhost:PORT/#/note/path/to/your-note.md` — view or edit a note with live preview.
@@ -48,7 +48,7 @@ pepenero serve /path/to/your/markdown/files
 
 
 
-## 📂 Folder Structure
+## Folder Structure
 
 ```
 .
@@ -64,7 +64,7 @@ pepenero serve /path/to/your/markdown/files
     └── style.css
 ```
 
-## 💡 Extension Ideas
+## Extension Ideas
 - Advanced dataview query execution
 - New note creation from the UI
 - Markdown extensions (checkboxes, diagrams, tables)

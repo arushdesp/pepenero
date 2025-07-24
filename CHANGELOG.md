@@ -1,3 +1,15 @@
+# 1.0.0 (2025-07-24)
+
+
+### Bug Fixes
+
+* Move jest to devDependencies for proper package structure ([6751cc9](https://github.com/arushdesp/pepenero/commit/6751cc961330254f168a2c8aa085835279e29aba))
+
+
+### Features
+
+* Add professional knowledge management features ([31f4dff](https://github.com/arushdesp/pepenero/commit/31f4dff21bb955d9318b4e1fa1961fe44f29b761))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -79,4 +91,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ES6 modules throughout
 - WebSocket for live updates
 - File system as source of truth
-- No database or cloud dependencies 
+- No database or cloud dependencies

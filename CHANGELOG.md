@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/arushdesp/pepenero/compare/v1.0.2...v1.0.3) (2025-07-24)
+
+
+### Bug Fixes
+
+* address a small bug in the content display ([ce9eb5a](https://github.com/arushdesp/pepenero/commit/ce9eb5a1492a1f36f56cab2f1dbe952361144d20))
+
 # 1.0.0 (2025-07-24)
 
 

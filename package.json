@@ -1,6 +1,6 @@
 {
   "name": "pepenero",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A fast, minimalist, local-first web application that turns a directory of Markdown files into a beautiful, auto-updating, customizable personal dashboard.",
   "main": "server.js",
   "type": "module",

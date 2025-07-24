@@ -2,7 +2,7 @@
 
 A fast, minimalist, local-first web application that turns a directory of Markdown files into a beautiful, auto-updating, customizable personal dashboard. Your own digital command center — built entirely on your machine, respecting privacy, speed, and simplicity.
 
-## Features
+## Features 
 
 - **Local File System as Source of Truth**: Reads content directly from your Markdown files. No cloud, no DB, no telemetry.
 - **Sidebar Navigation**: Hierarchical folder structure with expandable/collapsible folders and clickable files.
